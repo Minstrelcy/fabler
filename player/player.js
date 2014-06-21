@@ -1,4 +1,5 @@
-function Player(position, stats) {
+function Player(position, stats)
+{
 	this.position = position;
 	this.stats = stats;
 };
