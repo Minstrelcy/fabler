@@ -16,18 +16,18 @@ var locations = {
 		exits: {
 			north: {
 				direction: "north",
-				room: alley2,
+				room: "alley1",
 			},
 		},
 	},
 
-	alley2: {
+	alley1: {
 		name: "Farther along Diagon Alley",
 		description: "Farther along Diagon Alley",
 		exits: {
 			south: {
 				direction: "south",
-				room: alleyEntrance,
+				room: "alleyEntrance",
 			},
 		},
 	},
