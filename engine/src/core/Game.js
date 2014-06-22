@@ -7,18 +7,57 @@ var FABLER = (function () {
     "use strict";
 
     // Attributes
-    var that = this;
-    this.version = '0.0.0.1'; // The current release
+    var version = '0.0.0.1', // The current release
+	// To control API access
+	subsystems = {
+	    GfxMan: true,
+	    Player: true,
+	    Location: false,
+	    Asset: false
+	},
+
+	modules = {};
 
     return {
 	// Public methods
 	getVersion: function () {
-	    return that.version;
+	    return version;
 	},
 	
 	// Attaches a new member module
 	add: function (name, module) {
-	    that[name] = module;
+	    var that = this;
+	    modules[name] = module;
+
+	    // Allow front-end systems to publish
+	    // to the API
+	    if (subsystems[name] === true) {
+		module.publish = function (name, method) {
+		    if (that.hasOwnProperty(name)) {
+			throw ({
+			    name: "DuplicatePropertyException",
+			    message: "This object already has a " + 
+				"property with the name " + name
+			});
+		    } else {
+			if (typeof method === 'function') {
+			    that[name] = method;
+			} else {
+			    throw ({
+				name: "InvalidFunctionException",
+				message: "Someone tried to publish " + 
+				    "a property with the name " + name
+			    });
+			} //end if function
+		    } // end if not published
+		};
+	    }
+
+	    // Fire the init
+	    if (module.hasOwnProperty('init')) {
+		module.init();
+	    }
+
 	}
     };
 }());

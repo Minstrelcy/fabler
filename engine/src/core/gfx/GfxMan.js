@@ -33,12 +33,21 @@ FABLER.add("GfxMan",  (function () {
         }
     }
 
+    
     // Public Methods
     return {
 
         init: function () {
             createCanvas(800, 600);
             initGfxContext();
+	    
+	    // Publish API methods
+	    if (this.publish) {
+		this.publish("getFullScreen", function () {
+		    return isFullScreen;
+		});
+	    }
+
         },
 
 	setIsFullScreen: function (setting) {
