@@ -1,0 +1,17 @@
+{
+  "author": "J.R. Omahen, Abhishek",
+  "name": "Fabler",
+  "description": "The interactive fiction engine.",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git@gitorious.org:fabler/fabler.git"
+  },
+  "main": "Fabler",
+  "dependencies": {},
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}
