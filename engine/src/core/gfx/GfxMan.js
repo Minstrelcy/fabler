@@ -58,6 +58,14 @@ FABLER.add("GfxMan",  (function () {
 	    initGfxContext();
 	},
 
+	drawText: function (sourceText, destX, destY) {
+	    gfxContext.strokeText({
+		text: sourceText,
+		x: Math.floor(destX),
+		y: Math.floor(destY)
+	    });
+	},
+
 	setIsFullScreen: function (setting) {
 	    if (typeof setting === 'boolean') {
 		isFullScreen = setting;

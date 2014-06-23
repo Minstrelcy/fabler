@@ -72,6 +72,11 @@ var FABLER = (function () {
 	    for (i = 0; i < modules.length; i += 1) {
 		modules[i].doSetup();
 	    }
+
+	    // HELLO WORLD
+	    modules.GfxMan.drawText('Hello, World!!',
+				    (window.innerWidth / 2), 
+				    (window.innerHeight / 2));
 	}
     };
 }());
