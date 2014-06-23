@@ -1,4 +1,4 @@
-// GfxMan: The Graphics Manager for Fabler
+// GfxMan: The Graphicps Manager for Fabler
 // Copyright (C) 2014 J.R. Omahen
 
 FABLER.add("GfxMan",  (function () {
@@ -6,6 +6,15 @@ FABLER.add("GfxMan",  (function () {
 
     // Attributes
     var canvas, gfxContext, 
+	// Preferences for the look and feel
+	prefs = {
+	    textBaseline: 'middle',
+	    fontSpec: 'normal ' + //font style
+		'500 ' + //font weight
+		'12px ' + //font size
+		'Inconsolata Consolas monospace' //font family
+	},
+	// Internal representation of the canvas
 	buffer = {
 	    width: 0,
 	    height: 0,
@@ -43,6 +52,10 @@ FABLER.add("GfxMan",  (function () {
     function initGfxContext() {
         if (gfxContext === undefined) {
             gfxContext = canvas.getContext('2d');
+
+	    // Setup properties
+	    gfxContext.textBaseline = prefs.textBaseline;
+	    gfxContext.font = prefs.fontSpec;
         }
     }
 

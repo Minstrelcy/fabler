@@ -13,6 +13,10 @@ FABLER.add("Screen", (function () {
 	this.name = props.name || '';
 	this.buffer = props.buffer || null;
 	this.active = props.active || false;
+	this.cursor = { //Simple point, middle of line
+	    x: 0,
+	    y: 0
+	};
     };
     
     return {
@@ -26,5 +30,5 @@ FABLER.add("Screen", (function () {
 
 	    return screens[name];
 	}
-    }
+    };
 }()));
