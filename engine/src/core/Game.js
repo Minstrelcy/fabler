@@ -26,6 +26,10 @@ var FABLER = (function () {
 	
 	// Attaches a new member module
 	add: function (name, module) {
+	    if (typeof modules[name] === 'object') {
+		return;
+	    }
+
 	    var that = this;
 	    modules[name] = module;
 
