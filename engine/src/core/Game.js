@@ -80,9 +80,10 @@ var FABLER = (function () {
 	},
 
 	run: function () {
+	    modules.GfxMan.clear();
 	    modules.GfxMan.drawText('Hello, World!!',
-				    (window.innerWidth / 2), 
-				    (window.innerHeight / 2));
+				    0, 
+				    0);
 	}
     };
 }());

@@ -9,10 +9,8 @@ FABLER.add("GfxMan",  (function () {
 	// Preferences for the look and feel
 	prefs = {
 	    textBaseline: 'middle',
-	    fontSpec: 'normal ' + //font style
-		'500 ' + //font weight
-		'12px ' + //font size
-		'Inconsolata Consolas monospace' //font family
+	    fontSpec: 'Inconsolata Consolas monospace',
+	    lines: 20
 	},
 	// Internal representation of the canvas
 	buffer = {
@@ -52,10 +50,6 @@ FABLER.add("GfxMan",  (function () {
     function initGfxContext() {
         if (gfxContext === undefined) {
             gfxContext = canvas.getContext('2d');
-
-	    // Setup properties
-	    gfxContext.textBaseline = prefs.textBaseline;
-	    gfxContext.font = prefs.fontSpec;
         }
     }
 
@@ -79,12 +73,21 @@ FABLER.add("GfxMan",  (function () {
         },
 
 	doSetup: function () {
+	    var fontScale = 0;
+
 	    createCanvas(800, 600);
 	    initGfxContext();
 
+	    fontScale =
+		Math.floor(buffer.height / prefs.lines);
+
 	    gfxContext.fillStyle = buffer.bgColour;
 	    gfxContext.strokeStyle = buffer.fgColour;
+	    gfxContext.textBaseline = prefs.textBaseline;
+	    gfxContext.font = fontScale + 'px ' + prefs.fontSpec;
 	},
+
+	clear: clearScreen,
 
 	drawText: function (sourceText, destX, destY) {
 	    gfxContext.strokeText(sourceText,
