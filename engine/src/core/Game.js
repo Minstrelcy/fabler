@@ -13,7 +13,8 @@ var FABLER = (function () {
 	    GfxMan: true,
 	    Player: true,
 	    Location: false,
-	    Asset: false
+	    Asset: false,
+	    Screen: false
 	},
 
 	modules = {};
