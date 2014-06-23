@@ -66,6 +66,18 @@ var FABLER = (function () {
 
 	},
 
+	load: function () {
+	    var name;
+
+	    for (name in modules) {
+		if (modules.hasOwnProperty(name)) {
+		    if ( modules[name].hasOwnProperty('doSetup')) {
+			modules[name].doSetup();
+		    }
+		}
+	    }
+	},
+
 	run: function () {
 	    modules.GfxMan.drawText('Hello, World!!',
 				    (window.innerWidth / 2), 

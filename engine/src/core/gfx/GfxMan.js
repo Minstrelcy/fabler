@@ -6,11 +6,17 @@ FABLER.add("GfxMan",  (function () {
 
     // Attributes
     var canvas, gfxContext, 
+	buffer = {
+	    width: 0,
+	    height: 0,
+	    bgColour: 'rgb(0, 0, 0)',
+	    fgColour: 'rgb(252, 175, 62)'
+	},
 	canvasId = 'mainBuffer',
 	isFullScreen = false;
 
     // Private Methods
-    function createCanvas(height, width) {
+    function createCanvas(width, height) {
         if (canvas === undefined) {
             var body = document.getElementsByTagName('body')[0];
 
@@ -26,6 +32,9 @@ FABLER.add("GfxMan",  (function () {
 		    canvas.width = window.innerWidth;
 		});
 	    }
+
+	    buffer.width = canvas.width;
+	    buffer.height = canvas.height;
 	    
             body.appendChild(canvas);
         }
@@ -35,6 +44,11 @@ FABLER.add("GfxMan",  (function () {
         if (gfxContext === undefined) {
             gfxContext = canvas.getContext('2d');
         }
+    }
+
+    function clearScreen() {
+	gfxContext.fillRect(0, 0, 
+			    buffer.width, buffer.height);
     }
 
     // Public Methods
@@ -49,19 +63,24 @@ FABLER.add("GfxMan",  (function () {
 
 		this.publish('setFullScreen', this.setIsFullScreen);
 	    }
-
-	    createCanvas(800, 600);
-	    initGfxContext();
         },
 
 	doSetup: function () {
+	    createCanvas(800, 600);
+	    initGfxContext();
 
+	    gfxContext.fillStyle = buffer.bgColour;
+	    gfxContext.strokeStyle = buffer.fgColour;
 	},
 
 	drawText: function (sourceText, destX, destY) {
+	    clearScreen();
+	    var oldFill = gfxContext.fillStyle;
+	    gfxContext.fillStyle = buffer.fgColour;
 	    gfxContext.strokeText(sourceText,
 				  Math.floor(destX),
 				  Math.floor(destY));
+	    gfxContext.fillStyle = oldFill;
 	},
 
 	setIsFullScreen: function (setting) {
