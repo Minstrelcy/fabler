@@ -36,21 +36,23 @@ var FABLER = (function () {
 	    // Allow front-end systems to publish
 	    // to the API
 	    if (subsystems[name] === true) {
-		module.publish = function (name, method) {
-		    if (that.hasOwnProperty(name)) {
+		this[name] = { }; // Expose a public namespace
+		
+		module.publish = function (methodName, method) {
+		    if (that[name].hasOwnProperty(methodName)) {
 			throw ({
 			    name: "DuplicatePropertyException",
 			    message: "This object already has a " + 
-				"property with the name " + name
+				"property with the name " + methodName
 			});
 		    } else {
 			if (typeof method === 'function') {
-			    that[name] = method;
+			    that[name][methodName] = method;
 			} else {
 			    throw ({
 				name: "InvalidFunctionException",
 				message: "Someone tried to publish " + 
-				    "a property with the name " + name
+				    "a property with the name " + methodName
 			    });
 			} //end if function
 		    } // end if not published
