@@ -69,7 +69,7 @@ FABLER.add("GfxMan",  (function () {
 			isFullScreen = true;
 			break;
 			case 'false':
-			isFulScreen = false;
+			isFullScreen = false;
 			break;
 			default: 
 			throw ({
