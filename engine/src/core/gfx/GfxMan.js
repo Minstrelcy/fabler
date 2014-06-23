@@ -74,13 +74,9 @@ FABLER.add("GfxMan",  (function () {
 	},
 
 	drawText: function (sourceText, destX, destY) {
-	    clearScreen();
-	    var oldFill = gfxContext.fillStyle;
-	    gfxContext.fillStyle = buffer.fgColour;
 	    gfxContext.strokeText(sourceText,
 				  Math.floor(destX),
 				  Math.floor(destY));
-	    gfxContext.fillStyle = oldFill;
 	},
 
 	setIsFullScreen: function (setting) {
