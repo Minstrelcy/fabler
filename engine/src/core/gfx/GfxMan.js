@@ -37,7 +37,6 @@ FABLER.add("GfxMan",  (function () {
         }
     }
 
-    
     // Public Methods
     return {
 
@@ -51,19 +50,18 @@ FABLER.add("GfxMan",  (function () {
 		this.publish('setFullScreen', this.setIsFullScreen);
 	    }
 
+	    createCanvas(800, 600);
+	    initGfxContext();
         },
 
 	doSetup: function () {
-	    createCanvas(800, 600);
-	    initGfxContext();
+
 	},
 
 	drawText: function (sourceText, destX, destY) {
-	    gfxContext.strokeText({
-		text: sourceText,
-		x: Math.floor(destX),
-		y: Math.floor(destY)
-	    });
+	    gfxContext.strokeText(sourceText,
+				  Math.floor(destX),
+				  Math.floor(destY));
 	},
 
 	setIsFullScreen: function (setting) {
