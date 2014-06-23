@@ -19,8 +19,12 @@ FABLER.add("GfxMan",  (function () {
             canvas.height = height;
             canvas.width = width;
 
-	    if (isFullScreen === true) {
-		canvas.mozRequestFullScreen();
+	    if (isFullScreen === true) {		
+		// Setup event handler for the canvas to always be scaled 
+		window.addEventListener('resize', function () {
+		    canvas.height = window.innerHeight;
+		    canvas.width = window.innerWidth;
+		});
 	    }
 	    
             body.appendChild(canvas);
@@ -38,17 +42,21 @@ FABLER.add("GfxMan",  (function () {
     return {
 
         init: function () {
-            createCanvas(800, 600);
-            initGfxContext();
-	    
 	    // Publish API methods
 	    if (this.publish) {
-		this.publish("getFullScreen", function () {
+		this.publish('getFullScreen', function () {
 		    return isFullScreen;
 		});
+
+		this.publish('setFullScreen', this.setIsFullScreen);
 	    }
 
         },
+
+	doSetup: function () {
+	    createCanvas(800, 600);
+	    initGfxContext();
+	},
 
 	setIsFullScreen: function (setting) {
 	    if (typeof setting === 'boolean') {
