@@ -9,15 +9,17 @@ FABLER.add("GfxMan",  (function () {
 	// Preferences for the look and feel
 	prefs = {
 	    textBaseline: 'middle',
-	    fontSpec: 'Inconsolata Consolas monospace',
-	    lines: 20
+	    fontSpec: 'monospace',
+	    lines: 20, //lines per screen
+	    padding: 5 // range of 1-10
 	},
 	// Internal representation of the canvas
 	buffer = {
 	    width: 0,
 	    height: 0,
 	    bgColour: 'rgb(0, 0, 0)',
-	    fgColour: 'rgb(252, 175, 62)'
+	    fgColour: 'rgb(252, 175, 62)',
+	    fontScale: 0
 	},
 	canvasId = 'mainBuffer',
 	isFullScreen = false;
@@ -73,26 +75,30 @@ FABLER.add("GfxMan",  (function () {
         },
 
 	doSetup: function () {
-	    var fontScale = 0;
-
 	    createCanvas(800, 600);
 	    initGfxContext();
 
-	    fontScale =
+	    buffer.fontScale =
 		Math.floor(buffer.height / prefs.lines);
 
 	    gfxContext.fillStyle = buffer.bgColour;
 	    gfxContext.strokeStyle = buffer.fgColour;
 	    gfxContext.textBaseline = prefs.textBaseline;
-	    gfxContext.font = fontScale + 'px ' + prefs.fontSpec;
+	    gfxContext.font = buffer.fontScale + 
+		'px ' + prefs.fontSpec;
 	},
 
 	clear: clearScreen,
 
 	drawText: function (sourceText, destX, destY) {
+	    var realX = Math.floor(destX) + 
+		    Math.floor(buffer.fontScale * prefs.lines), 
+		realY = Math.floor(destY) +
+		    Math.floor(buffer.fontScale * prefs.lines);
+
 	    gfxContext.strokeText(sourceText,
-				  Math.floor(destX),
-				  Math.floor(destY));
+				  realX,
+				  realY);
 	},
 
 	setIsFullScreen: function (setting) {
