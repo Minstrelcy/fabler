@@ -104,11 +104,15 @@ FABLER.add("GfxMan",  (function () {
 		realY = Math.floor(destY) +
 		    Math.floor(buffer.fontScale * 
 			       prefs.padding) +
-		    prefs.margin;
+		    prefs.margin,
+	    // save and restore
+		oldFill = gfxContext.fillValue;
 
+	    gfxContext.fillValue = buffer.fgColour;
 	    gfxContext.strokeText(sourceText,
 				  realX,
 				  realY);
+	    gfxContext.fillValue = oldFill;
 	},
 
 	setIsFullScreen: function (setting) {
