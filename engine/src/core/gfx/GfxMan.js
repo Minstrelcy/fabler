@@ -96,9 +96,11 @@ FABLER.add("GfxMan",  (function () {
 
 	drawText: function (sourceText, destX, destY) {
 	    var realX = Math.floor(destX) + 
-		    Math.floor(buffer.fontScale / 2), 
+		    Math.floor(buffer.fontScale / 2) +
+		    buffer.padding, 
 		realY = Math.floor(destY) +
-		    Math.floor(buffer.fontScale / 2);
+		    Math.floor(buffer.fontScale / 2) +
+		    buffer.padding;
 
 	    gfxContext.strokeText(sourceText,
 				  realX,
