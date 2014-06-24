@@ -11,7 +11,8 @@ FABLER.add("GfxMan",  (function () {
 	    textBaseline: 'middle',
 	    fontSpec: 'monospace',
 	    lines: 20, //lines per screen
-	    padding: 5 // range of 1-10
+	    padding: 0.6, // range of 1-10
+	    margin: 2 // absolute
 	},
 	// Internal representation of the canvas
 	buffer = {
@@ -96,11 +97,14 @@ FABLER.add("GfxMan",  (function () {
 
 	drawText: function (sourceText, destX, destY) {
 	    var realX = Math.floor(destX) + 
-		    Math.floor(buffer.fontScale / 2) +
-		    buffer.padding, 
+		    Math.floor(buffer.fontScale *  
+			       prefs.padding) +
+		    prefs.margin, 
+
 		realY = Math.floor(destY) +
-		    Math.floor(buffer.fontScale / 2) +
-		    buffer.padding;
+		    Math.floor(buffer.fontScale * 
+			       prefs.padding) +
+		    prefs.margin;
 
 	    gfxContext.strokeText(sourceText,
 				  realX,
