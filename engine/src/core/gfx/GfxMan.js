@@ -35,6 +35,10 @@ FABLER.add("GfxMan",  (function () {
             canvas.width = width;
 
 	    if (isFullScreen === true) {		
+		// Init canvas to window size
+		canvas.height = window.innerHeight;
+		canvas.width = window.innerWidth;
+
 		// Setup event handler for the canvas to always be scaled 
 		window.addEventListener('resize', function () {
 		    canvas.height = window.innerHeight;
@@ -92,9 +96,9 @@ FABLER.add("GfxMan",  (function () {
 
 	drawText: function (sourceText, destX, destY) {
 	    var realX = Math.floor(destX) + 
-		    Math.floor(buffer.fontScale * prefs.lines), 
+		    Math.floor(buffer.fontScale / 2), 
 		realY = Math.floor(destY) +
-		    Math.floor(buffer.fontScale * prefs.lines);
+		    Math.floor(buffer.fontScale / 2);
 
 	    gfxContext.strokeText(sourceText,
 				  realX,
