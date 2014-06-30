@@ -29,6 +29,9 @@ FABLER.add("Screen", (function () {
 	    });
 
 	    return screens[name];
+	},
+	
+	printDescription: function(text, destScreen) {
 	}
     };
 }()));

@@ -14,7 +14,8 @@
       <script>
 	FABLER.GfxMan.setFullScreen(true);
 	FABLER.load();
-	FABLER.run();
+	// Simulate 30+ FPS
+	setInterval(FABLER.run, 35);
       </script>
     </body>
 </html>
