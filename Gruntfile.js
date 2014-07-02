@@ -7,7 +7,7 @@ module.exports = function (grunt) {
         core_dest =  'engine/build/fabler-core.js',
         module_dest =  'engine/build/fabler-modules.js',
         fabler_dest = 'engine/build/<%= pkg.name %>-<%= pkg.version %>.js';
-
+ 
     // Configure project build here
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -57,9 +57,9 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('build-core', 'Build the core of the engine',
-                       ['concat:core']);
+                       ['jslint:core', 'concat:core']);
     grunt.registerTask('build-modules', 'Build the modules of the engine',
-                       ['concat:modules']);
+                       ['jslint:module', 'concat:modules']);
     grunt.registerTask('build', 'Build the source file',
                        ['build-core', 'build-modules', 'concat:all']);
 };
