@@ -24,7 +24,7 @@ var FABLER = (function () {
         getVersion: function () {
             return version;
         },
-        
+
         // Attaches a new member module
         add: function (name, module) {
             if (typeof modules[name] === 'object') {
@@ -38,25 +38,24 @@ var FABLER = (function () {
             // to the API
             if (subsystems[name] === true) {
                 this[name] = { }; // Expose a public namespace
-                
+
                 module.publish = function (methodName, method) {
                     if (that[name].hasOwnProperty(methodName)) {
                         throw ({
                             name: "DuplicatePropertyException",
-                            message: "This object already has a " + 
+                            message: "This object already has a " +
                                 "property with the name " + methodName
                         });
+                    }
+                    if (typeof method === 'function') {
+                        that[name][methodName] = method;
                     } else {
-                        if (typeof method === 'function') {
-                            that[name][methodName] = method;
-                        } else {
-                            throw ({
-                                name: "InvalidFunctionException",
-                                message: "Someone tried to publish " + 
-                                    "a property with the name " + methodName
-                            });
-                        } //end if function
-                    } // end if not published
+                        throw ({
+                            name: "InvalidFunctionException",
+                            message: "Someone tried to publish " +
+                                "a property with the name " + methodName
+                        });
+                    } //end if function
                 };
             }
 
@@ -72,7 +71,7 @@ var FABLER = (function () {
 
             for (name in modules) {
                 if (modules.hasOwnProperty(name)) {
-                    if ( modules[name].hasOwnProperty('doSetup')) {
+                    if (modules[name].hasOwnProperty('doSetup')) {
                         modules[name].doSetup();
                     }
                 }
@@ -82,7 +81,7 @@ var FABLER = (function () {
         run: function () {
             modules.GfxMan.clear();
             modules.GfxMan.drawText('Hello, World!!',
-                                    0, 
+                                    0,
                                     0);
         }
     };
