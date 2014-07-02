@@ -26,6 +26,12 @@ module.exports = function (grunt) {
             }
         },
         uglify: {
+	    dist: {
+		files: {
+		  'engine/build/<%= pkg.name %>-<%= pkg.version %>.min.js':
+		    [fabler_dest]
+		}
+	    }
         },
         jslint: {
 	    core: {
@@ -62,4 +68,8 @@ module.exports = function (grunt) {
                        ['jslint:module', 'concat:modules']);
     grunt.registerTask('build', 'Build the source file',
                        ['build-core', 'build-modules', 'concat:all']);
+    grunt.registerTask('dist', 'Lint, build and compress the final product',
+                       ['build-core', 'build-modules',
+			'concat:all', 'uglify:dist']);
+
 };
