@@ -1,5 +1,5 @@
 {
-  "author": "J.R. Omahen, Abhishek",
+  "author": "NovaLabs",
   "name": "Fabler",
   "description": "The interactive fiction engine.",
   "version": "0.0.1",
@@ -9,8 +9,10 @@
   },
   "main": "Fabler",
   "dependencies": {},
-  "devDependencies": { 
-      "grunt": "~0.4.5"
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-concat": "^0.4.0",
+    "grunt-contrib-uglify": "^0.5.0"
   },
   "optionalDependencies": {},
   "engines": {
