@@ -9,7 +9,9 @@
   },
   "main": "Fabler",
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": { 
+      "grunt": "~0.4.5"
+  },
   "optionalDependencies": {},
   "engines": {
     "node": "*"
