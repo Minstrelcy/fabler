@@ -26,12 +26,28 @@ module.exports = function (grunt) {
             }
         },
         uglify: {
+        },
+        jslint: {
+	    core: {
+                src: [core_src],
+		directives: {
+		    browser: true
+		}
+	    },
+	    module: {
+		src: [module_src],
+		directives: {
+		    browser: true,
+		    predef: ['FABLER']
+		}
+	    }
         }
     });
 
     // Load required task runners
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-jslint');
 
     // Setup project tasks
     // Help info
