@@ -31,7 +31,7 @@ FABLER.add("Screen", (function () {
 
         printDescription: function (text) {
             var textBuffer = {
-                text: text,
+                contents: [text],
                 x: 0,
                 y: 0
             },
@@ -40,21 +40,21 @@ FABLER.add("Screen", (function () {
             // Wrap text if needed, building a textBuffer series
             if (text.length > this.modules.GfxMan.getMaxChars()) {
                 tempBuffer = text;
-                textBuffer.text = [];
+                textBuffer.contents = [];
 
                 while (tempBuffer.length > this.modules.GfxMan.getMaxChars()) {
-                    text.push(tempBuffer.
+                    textBuffer.contents.push(tempBuffer.
                               substr(0,
                                      this.modules.GfxMan.getMaxChars() - 1)
                              );
 
                     tempBuffer = tempBuffer.substr(
-                        this.modules.GfxMan.getMaxChars() - 1);
+                        this.modules.GfxMan.getMaxChars() - 1
+                    );
                 }
-            }
 
-            // log it
-            console.log(textBuffer);
+                textBuffer.contents.push(tempBuffer);
+            }
         }
     };
 }()));
