@@ -11,8 +11,8 @@ FABLER.add("GfxMan",  (function () {
             textBaseline: 'middle',
             fontSpec: 'monospace',
             lines: 20, //lines per screen
-            padding: 0.6, // range of 1-10
-            margin: 0.02 // absolute
+            padding: 0.7, // range of 1-10
+            margin: 0.15 // absolute
         },
         // Internal representation of the canvas
         // calculated with updateMetrics
