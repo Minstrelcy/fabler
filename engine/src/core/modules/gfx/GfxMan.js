@@ -6,14 +6,14 @@ FABLER.add("GfxMan",  (function () {
 
     // Attributes
     var canvas, gfxContext,
+
         // Preferences for the look and feel
         prefs = {
             textBaseline: 'middle',
             fontSpec: 'monospace',
-            lines: 20, //lines per screen
-            padding: 0.7, // range of 1-10
-            margin: 0.15 // absolute
+            lines: 20 //lines per screen
         },
+
         // Internal representation of the canvas
         // calculated with updateMetrics
         buffer = {
@@ -22,7 +22,8 @@ FABLER.add("GfxMan",  (function () {
             bgColour: 'rgb(0, 0, 0)',
             fgColour: 'rgb(252, 175, 62)',
             fontScale: 0,
-            margin: 0 // based on prefs margin
+            maxChars: 0, // How much text can be written per line
+            metrics: null // For TextMetrics
         },
         canvasId = 'mainBuffer',
         isFullScreen = false;
@@ -35,13 +36,16 @@ FABLER.add("GfxMan",  (function () {
         // Setup the buffer stats
         buffer.height = height;
         buffer.width = width;
-        buffer.fontScale =
-            Math.floor(height / prefs.lines);
-        buffer.margin =
-            Math.floor(buffer.fontScale * prefs.margin);
+        buffer.fontScale = Math.floor(height / prefs.lines);
+
         // Setup context specs
         gfxContext.font = buffer.fontScale +
             'px ' + prefs.fontSpec;
+
+        // Calculate text metrics
+        buffer.metrics = gfxContext.measureText('m');
+        buffer.metrics.emHeightAscent = Math.floor(buffer.metrics.width);
+        buffer.maxChars = Math.floor(buffer.width / buffer.metrics.width);
     }
 
     function createCanvas(width, height) {
@@ -114,15 +118,8 @@ FABLER.add("GfxMan",  (function () {
         clear: clearScreen,
 
         drawText: function (sourceText, destX, destY) {
-            var realX = Math.floor(destX) +
-                    Math.floor(buffer.fontScale *
-                               prefs.padding) +
-                    buffer.margin,
-
-                realY = Math.floor(destY) +
-                    Math.floor(buffer.fontScale *
-                               prefs.padding) +
-                    buffer.margin,
+            var realX = Math.floor(destX + buffer.metrics.width),
+                realY = Math.floor(destY + buffer.metrics.emHeightAscent),
                 // save and restore
                 oldFill = gfxContext.fillStyle;
 
@@ -142,16 +139,8 @@ FABLER.add("GfxMan",  (function () {
                 return;
             }
 
-            realX = Math.floor(textBuffer.x) +
-                Math.floor(buffer.fontScale *
-                           prefs.padding) +
-                buffer.margin;
-
-            realY = Math.floor(textBuffer.y) +
-                Math.floor(buffer.fontScale *
-                           prefs.padding) +
-                buffer.margin;
-
+            realX = Math.floor(textBuffer.x + buffer.metrics.width);
+            realY = Math.floor(textBuffer.y + buffer.metrics.emHeightAscent);
 
             if (textBuffer.fillStyle &&
                     textBuffer.fillStyle !== '') {
@@ -163,7 +152,6 @@ FABLER.add("GfxMan",  (function () {
                                 realY);
 
             gfxContext.fillStyle = oldFill;
-
         },
 
         setIsFullScreen: function (setting) {
