@@ -44,7 +44,7 @@ module.exports = function (grunt) {
 		src: [module_src],
 		directives: {
 		    browser: true,
-		    predef: ['FABLER']
+		    predef: ['FABLER','console']
 		}
 	    }
         }
