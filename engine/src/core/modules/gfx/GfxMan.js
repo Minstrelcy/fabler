@@ -123,7 +123,7 @@ FABLER.add("GfxMan",  (function () {
                     Math.floor(buffer.fontScale *
                                prefs.padding) +
                     buffer.margin,
-            // save and restore
+                // save and restore
                 oldFill = gfxContext.fillStyle;
 
             gfxContext.fillStyle = buffer.fgColour;
@@ -131,6 +131,39 @@ FABLER.add("GfxMan",  (function () {
                                   realX,
                                   realY);
             gfxContext.fillStyle = oldFill;
+        },
+
+        drawTextBuffer: function (textBuffer) {
+            var oldFill = gfxContext.fillStyle,
+                realX,
+                realY;
+
+            if (typeof textBuffer === 'string') {
+                return;
+            }
+
+            realX = Math.floor(textBuffer.x) +
+                Math.floor(buffer.fontScale *
+                           prefs.padding) +
+                buffer.margin;
+
+            realY = Math.floor(textBuffer.y) +
+                Math.floor(buffer.fontScale *
+                           prefs.padding) +
+                buffer.margin;
+
+
+            if (textBuffer.fillStyle &&
+                    textBuffer.fillStyle !== '') {
+                gfxContext.fillStyle = textBuffer.fillStyle;
+            }
+
+            gfxContext.fillText(textBuffer.text,
+                                realX,
+                                realY);
+
+            gfxContext.fillStyle = oldFill;
+
         },
 
         setIsFullScreen: function (setting) {
