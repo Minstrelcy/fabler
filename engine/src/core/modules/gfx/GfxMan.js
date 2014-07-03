@@ -181,6 +181,10 @@ FABLER.add("GfxMan",  (function () {
 
         getBuffer: function () {
             return buffer;
+        },
+
+        getMaxChars: function () {
+            return buffer.maxChars;
         }
     };
 }()));

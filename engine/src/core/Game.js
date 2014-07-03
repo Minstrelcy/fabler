@@ -34,6 +34,9 @@ var FABLER = (function () {
             var that = this;
             modules[name] = module;
 
+            // Grant access to the internal API
+            module.modules = modules;
+
             // Allow front-end systems to publish
             // to the API
             if (subsystems[name] === true) {
@@ -83,6 +86,7 @@ var FABLER = (function () {
             modules.GfxMan.drawText('Hello, World!!',
                                     0,
                                     0);
+            modules.Screen.printDescription('Hello, peoples of the world! I cannot believe there is no butter!');
         }
     };
 }());

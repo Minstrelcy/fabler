@@ -29,8 +29,34 @@ FABLER.add("Screen", (function () {
             return screens[name];
         },
 
-        printDescription: function (text, destScreen) {
-            console.log(text + destScreen);
+        printDescription: function (text) {
+            var textBuffer = {
+                text: text,
+                x: 0,
+                y: 0
+            },
+                tempBuffer;
+
+            // Wrap text if needed, building a textBuffer series
+            if (text.length > this.modules.GfxMan.getMaxChars()) {
+                tempBuffer = text;
+                textBuffer.text = [];
+
+                while (tempBuffer.length >
+                        this.modules.GfxMan.getMaxChars()) {
+                    text.push(tempBuffer.
+                              substr(0,
+                                     this.modules.GfxMan.getMaxChars() - 1)
+                             );
+
+                    tempBuffer = tempBuffer.substr(
+                        this.modules.GfxMan.getMaxChars() - 1
+                    );
+                }
+            }
+
+            // log it
+            console.log(textBuffer);
         }
     };
 }()));
