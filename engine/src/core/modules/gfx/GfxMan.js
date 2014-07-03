@@ -177,6 +177,10 @@ FABLER.add("GfxMan",  (function () {
                     setting = Boolean.valueOf(setting);
                 }
             }
+        },
+
+        getBuffer: function () {
+            return buffer;
         }
     };
 }()));
