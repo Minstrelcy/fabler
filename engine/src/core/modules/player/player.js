@@ -1,5 +1,6 @@
-function Player(position, stats)
-{
-        this.position = position;
-        this.stats = stats;
-};
+function Player(position, stats) {
+    'use strict';
+
+    this.position = position;
+    this.stats = stats;
+}

@@ -7,7 +7,7 @@ var locations = {
         description: "This is the entrance to Diagon Alley.",
         on_enter: function () {
             'use strict';
-            
+
             console.log("You are now entering Diagon Alley.");
         },
         objects: {
