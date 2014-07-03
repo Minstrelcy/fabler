@@ -12,7 +12,7 @@ FABLER.add("GfxMan",  (function () {
             fontSpec: 'monospace',
             lines: 20, //lines per screen
             padding: 0.6, // range of 1-10
-            margin: 2 // absolute
+            margin: 0.02 // absolute
         },
         // Internal representation of the canvas
         // calculated with updateMetrics
@@ -21,7 +21,8 @@ FABLER.add("GfxMan",  (function () {
             height: 0,
             bgColour: 'rgb(0, 0, 0)',
             fgColour: 'rgb(252, 175, 62)',
-            fontScale: 0
+            fontScale: 0,
+            margin: 0 // based on prefs margin
         },
         canvasId = 'mainBuffer',
         isFullScreen = false;
@@ -36,7 +37,8 @@ FABLER.add("GfxMan",  (function () {
         buffer.width = width;
         buffer.fontScale =
             Math.floor(height / prefs.lines);
-
+        buffer.margin =
+            Math.floor(buffer.fontScale * prefs.margin);
         // Setup context specs
         gfxContext.font = buffer.fontScale +
             'px ' + prefs.fontSpec;
@@ -115,12 +117,12 @@ FABLER.add("GfxMan",  (function () {
             var realX = Math.floor(destX) +
                     Math.floor(buffer.fontScale *
                                prefs.padding) +
-                    prefs.margin,
+                    buffer.margin,
 
                 realY = Math.floor(destY) +
                     Math.floor(buffer.fontScale *
                                prefs.padding) +
-                    prefs.margin,
+                    buffer.margin,
             // save and restore
                 oldFill = gfxContext.fillStyle;
 
