@@ -44,7 +44,7 @@ FABLER.add("GfxMan",  (function () {
 
         // Calculate text metrics
         buffer.metrics = gfxContext.measureText('m');
-        buffer.metrics.emHeightAscent = Math.floor(buffer.metrics.width);
+        buffer.metrics.emHeightAscent = Math.floor(buffer.metrics.width * 2);
         buffer.maxChars = Math.floor(buffer.width / buffer.metrics.width);
     }
 
