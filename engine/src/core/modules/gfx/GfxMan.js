@@ -15,6 +15,7 @@ FABLER.add("GfxMan",  (function () {
             margin: 2 // absolute
         },
         // Internal representation of the canvas
+        // calculated with updateMetrics
         buffer = {
             width: 0,
             height: 0,
@@ -26,6 +27,21 @@ FABLER.add("GfxMan",  (function () {
         isFullScreen = false;
 
     // Private Methods
+    function updateMetrics() {
+        var height = Math.floor(canvas.height),
+            width = Math.floor(canvas.width);
+
+        // Setup the buffer stats
+        buffer.height = height;
+        buffer.width = width;
+        buffer.fontScale =
+            Math.floor(height / prefs.lines);
+
+        // Setup context specs
+        gfxContext.font = buffer.fontScale +
+            'px ' + prefs.fontSpec;
+    }
+
     function createCanvas(width, height) {
         if (canvas === undefined) {
             var body = document.getElementsByTagName('body')[0];
@@ -44,6 +60,9 @@ FABLER.add("GfxMan",  (function () {
                 window.addEventListener('resize', function () {
                     canvas.height = window.innerHeight;
                     canvas.width = window.innerWidth;
+
+                    // Make sure the metrics are updated
+                    updateMetrics();
                 });
             }
 
@@ -83,14 +102,11 @@ FABLER.add("GfxMan",  (function () {
             createCanvas(800, 600);
             initGfxContext();
 
-            buffer.fontScale =
-                Math.floor(buffer.height / prefs.lines);
-
             gfxContext.fillStyle = buffer.bgColour;
             gfxContext.strokeStyle = buffer.fgColour;
             gfxContext.textBaseline = prefs.textBaseline;
-            gfxContext.font = buffer.fontScale +
-                'px ' + prefs.fontSpec;
+
+            updateMetrics(); // Make sure scaling is right
         },
 
         clear: clearScreen,
