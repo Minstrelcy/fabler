@@ -42,16 +42,14 @@ FABLER.add("Screen", (function () {
                 tempBuffer = text;
                 textBuffer.text = [];
 
-                while (tempBuffer.length >
-                        this.modules.GfxMan.getMaxChars()) {
+                while (tempBuffer.length > this.modules.GfxMan.getMaxChars()) {
                     text.push(tempBuffer.
                               substr(0,
                                      this.modules.GfxMan.getMaxChars() - 1)
                              );
 
                     tempBuffer = tempBuffer.substr(
-                        this.modules.GfxMan.getMaxChars() - 1
-                    );
+                        this.modules.GfxMan.getMaxChars() - 1);
                 }
             }
 
