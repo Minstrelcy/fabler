@@ -54,6 +54,11 @@ FABLER.add("Screen", (function () {
                 }
 
                 textBuffer.contents.push(tempBuffer);
+            } else {
+                // No need to wrap the text; render it normal
+                this.modules.GfxMan.drawText(textBuffer.contents[0],
+                                            textBuffer.x,
+                                            textBuffer.y);
             }
         }
     };

@@ -35,7 +35,9 @@ var FABLER = (function () {
             modules[name] = module;
 
             // Grant access to the internal API
-            module.modules = modules;
+            if (subsystems.hasOwnProperty(name)) {
+                module.modules = modules;
+            }
 
             // Allow front-end systems to publish
             // to the API
