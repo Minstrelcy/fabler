@@ -23,7 +23,8 @@ FABLER.add("GfxMan",  (function () {
             fgColour: 'rgb(252, 175, 62)',
             fontScale: 0,
             maxChars: 0, // How much text can be written per line
-            metrics: null // For TextMetrics
+            metrics: null, // For TextMetrics
+	    padding: 10 // Space around the main screen area
         },
         canvasId = 'mainBuffer',
         isFullScreen = false;
@@ -34,8 +35,8 @@ FABLER.add("GfxMan",  (function () {
             width = Math.floor(canvas.width);
 
         // Setup the buffer stats
-        buffer.height = height;
-        buffer.width = width;
+        buffer.height = height - buffer.padding;
+        buffer.width = width - buffer.padding;
         buffer.fontScale = Math.floor(height / prefs.lines);
 
         // Setup context specs
