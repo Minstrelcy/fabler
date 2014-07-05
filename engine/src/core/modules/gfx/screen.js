@@ -36,7 +36,8 @@ FABLER.add("Screen", (function () {
                 y: 0
             },
                 tempBuffer,
-                i;
+                i,
+                lineHeight = this.modules.GfxMan.getBuffer().metrics.width * 2;
 
             // Wrap text if needed, building a textBuffer series
             if (text.length > this.modules.GfxMan.getMaxChars()) {
@@ -62,9 +63,7 @@ FABLER.add("Screen", (function () {
                     this.modules.GfxMan.drawText(textBuffer.contents[i],
                                                  textBuffer.x,
                                                  (textBuffer.y +
-                                                  (i *
-                                                   this.modules.GfxMan.getBuffer().
-                                                   metrics.width)));
+                                                  (i * lineHeight)));
                 }
             } else {
                 // No need to wrap the text; render it normal
