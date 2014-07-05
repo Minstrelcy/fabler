@@ -85,10 +85,10 @@ var FABLER = (function () {
 
         run: function () {
             modules.GfxMan.clear();
-            modules.GfxMan.drawText('Hello, World!!',
-                                    0,
-                                    0);
-            modules.Screen.printDescription('Hello, peoples of the world! I cannot believe there is no butter!');
+            modules.Screen.printDescription('Hi all, this is Fabler.' +
+                                            ' If you were expecting a game ' +
+                                            'to be here, please contact your ' +
+                                            'nearest representative.');
         }
     };
 }());
