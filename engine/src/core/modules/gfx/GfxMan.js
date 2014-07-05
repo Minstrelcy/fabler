@@ -24,7 +24,7 @@ FABLER.add("GfxMan",  (function () {
             fontScale: 0,
             maxChars: 0, // How much text can be written per line
             metrics: null, // For TextMetrics
-	    padding: 10 // Space around the main screen area
+            padding: 10 // Space around the main screen area
         },
         canvasId = 'mainBuffer',
         isFullScreen = false;
