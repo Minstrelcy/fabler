@@ -119,8 +119,10 @@ FABLER.add("GfxMan",  (function () {
         clear: clearScreen,
 
         drawText: function (sourceText, destX, destY) {
-            var realX = Math.floor(destX + buffer.metrics.width),
-                realY = Math.floor(destY + buffer.metrics.emHeightAscent),
+            var realX = Math.floor(destX + buffer.metrics.width +
+                                   buffer.padding),
+                realY = Math.floor(destY + buffer.metrics.emHeightAscent +
+                                  buffer.padding),
                 // save and restore
                 oldFill = gfxContext.fillStyle;
 
