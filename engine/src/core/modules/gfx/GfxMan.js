@@ -133,28 +133,62 @@ FABLER.add("GfxMan",  (function () {
             gfxContext.fillStyle = oldFill;
         },
 
+        // Draw a text buffer of the form:
+        //var textBuffer = {
+        //    contents: [text],
+        //    x: 0,
+        //    y: 0
+        //}
+        // The text needs to be wrapped as needed
         drawTextBuffer: function (textBuffer) {
-            var oldFill = gfxContext.fillStyle,
-                realX,
-                realY;
+            var lineHeight = buffer.metrics.width * 2,
+                tempBuffer = '',
+                spliceArray = [],
+                i,
+                j;
 
             if (typeof textBuffer === 'string') {
-                return;
+                return; // Not the right method
             }
 
-            realX = Math.floor(textBuffer.x + buffer.metrics.width);
-            realY = Math.floor(textBuffer.y + buffer.metrics.emHeightAscent);
+            // We need to iterate over the text buffer's 
+            // members, splicing into the array additional
+            // lines where we need to wrap
+            for (i = 0; i < textBuffer.contents.length; i += 1) {
+                // Wrap text if needed, building a textBuffer series
+                if (textBuffer.contents[i].length > buffer.maxChars) {
+                    tempBuffer = textBuffer.contents[i];
+                    spliceArray = [];
 
-            if (textBuffer.fillStyle &&
-                    textBuffer.fillStyle !== '') {
-                gfxContext.fillStyle = textBuffer.fillStyle;
+                    while (tempBuffer.length > buffer.maxChars) {
+                        spliceArray.push(tempBuffer.substr(0,
+                                                           buffer.maxChars - 1));
+
+                        tempBuffer = tempBuffer.substr(buffer.maxChars - 1);
+                    }
+
+                    spliceArray.push(tempBuffer);
+
+                    // Add in the newly-divided text in place of the old.
+                    // I hate manual merging, but c'est la vie.
+                    textBuffer.contents.splice(i, 1);
+
+                    for (j = 0; j < spliceArray.length; j += 1) {
+                        textBuffer.contents.splice(i + j, 0, spliceArray[j]);
+                    }
+
+                    i = j; // Advance the iterator past 
+                }
             }
 
-            gfxContext.fillText(textBuffer.text,
-                                realX,
-                                realY);
-
-            gfxContext.fillStyle = oldFill;
+            // Now iterate, advancing each text line
+            // by the line height
+            for (i = 0; i < textBuffer.contents.length; i += 1) {
+                this.drawText(textBuffer.contents[i],
+                                             textBuffer.x,
+                                             (textBuffer.y +
+                                              (i * lineHeight)));
+            }
         },
 
         setIsFullScreen: function (setting) {

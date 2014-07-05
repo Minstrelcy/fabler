@@ -18,7 +18,7 @@ FABLER.add("Screen", (function () {
         };
 
     return {
-    // Public Methods
+        // Public Methods
         createScreen: function (name, buffer, active) {
             screens[name] = new ScreenBuffer({
                 'name': name,
@@ -30,47 +30,9 @@ FABLER.add("Screen", (function () {
         },
 
         printDescription: function (text) {
-            var textBuffer = {
-                contents: [text],
-                x: 0,
-                y: 0
-            },
-                tempBuffer,
-                i,
-                lineHeight = this.modules.GfxMan.getBuffer().metrics.width * 2;
-
-            // Wrap text if needed, building a textBuffer series
-            if (text.length > this.modules.GfxMan.getMaxChars()) {
-                tempBuffer = text;
-                textBuffer.contents = [];
-
-                while (tempBuffer.length > this.modules.GfxMan.getMaxChars()) {
-                    textBuffer.contents.push(tempBuffer.
-                              substr(0,
-                                     this.modules.GfxMan.getMaxChars() - 1)
-                             );
-
-                    tempBuffer = tempBuffer.substr(
-                        this.modules.GfxMan.getMaxChars() - 1
-                    );
-                }
-
-                textBuffer.contents.push(tempBuffer);
-
-                // Now iterate, advancing each text line
-                // by the line height
-                for (i = 0; i < textBuffer.contents.length; i += 1) {
-                    this.modules.GfxMan.drawText(textBuffer.contents[i],
-                                                 textBuffer.x,
-                                                 (textBuffer.y +
-                                                  (i * lineHeight)));
-                }
-            } else {
-                // No need to wrap the text; render it normal
-                this.modules.GfxMan.drawText(textBuffer.contents[0],
-                                            textBuffer.x,
-                                            textBuffer.y);
-            }
+            // Determine the current cursor position,
+            // and advance it for this text
+            screens.current.buffer.contents.push(text);
         }
     };
 }()));
