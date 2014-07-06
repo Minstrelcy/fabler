@@ -82,16 +82,16 @@ var FABLER = (function () {
             }
 
             modules.Screen.createScreen('main', true);
-            modules.Screen.printDescription('Hi all, this is Fabler.' +
-                                            ' If you were expecting a game ' +
-                                            'to be here, please contact your ' +
-                                            'nearest representative.', 'main');
 
         },
 
         run: function () {
             modules.GfxMan.clear();
             modules.Screen.switchScreen('main');
+            modules.Screen.printDescription('Hi all, this is Fabler.' +
+                                            ' If you were expecting a game ' +
+                                            'to be here, please contact your ' +
+                                            'nearest representative.');
             modules.Screen.render();
         }
     };
