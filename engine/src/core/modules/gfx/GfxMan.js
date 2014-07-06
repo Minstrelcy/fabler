@@ -142,6 +142,7 @@ FABLER.add("GfxMan",  (function () {
         // The text needs to be wrapped as needed
         drawTextBuffer: function (textBuffer) {
             var lineHeight = buffer.metrics.width * 2,
+                printBuffer = new this.modules.Screen.TextBuffer(),
                 tempBuffer = '',
                 spliceArray = [],
                 i,
@@ -150,6 +151,9 @@ FABLER.add("GfxMan",  (function () {
             if (typeof textBuffer === 'string') {
                 return; // Not the right method
             }
+
+            printBuffer.x = textBuffer.x;
+            printBuffer.y = textBuffer.y;
 
             // We need to iterate over the text buffer's 
             // members, splicing into the array additional
@@ -169,24 +173,31 @@ FABLER.add("GfxMan",  (function () {
 
                     spliceArray.push(tempBuffer);
 
+                    // Copy into the print buffer
+                    for (j = 0; j < spliceArray.length; j += 1) {
+                        printBuffer.contents.push(spliceArray[j]);
+                    }
                     // Add in the newly-divided text in place of the old.
                     // I hate manual merging, but c'est la vie.
-                    textBuffer.contents.splice(i, 1);
+                    //textBuffer.contents.splice(i, 1);
 
-                    for (j = 0; j < spliceArray.length; j += 1) {
-                        textBuffer.contents.splice(i + j, 0, spliceArray[j]);
-                    }
+                    //for (j = 0; j < spliceArray.length; j += 1) {
+                    //    textBuffer.contents.splice(i + j, 0, spliceArray[j]);
+                    //}
 
-                    i = j; // Advance the iterator past 
+                    //i = j; // Advance the iterator past 
+                } else {
+                    // No wrapping needed
+                    printBuffer.contents.push(textBuffer[i]);
                 }
             }
 
             // Now iterate, advancing each text line
             // by the line height
-            for (i = 0; i < textBuffer.contents.length; i += 1) {
-                this.drawText(textBuffer.contents[i],
-                                             textBuffer.x,
-                                             (textBuffer.y +
+            for (i = 0; i < printBuffer.contents.length; i += 1) {
+                this.drawText(printBuffer.contents[i],
+                                             printBuffer.x,
+                                             (printBuffer.y +
                                               (i * lineHeight)));
             }
         },
