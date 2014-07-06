@@ -57,7 +57,11 @@ FABLER.add("Screen", (function () {
         //}
         TextBuffer: function (text) {
             this.contents = [];
-            this.contents.push(text);
+
+            if (typeof text === 'string') {
+                this.contents.push(text);
+            }
+
             this.x = 0;
             this.y = 0;
 
