@@ -85,11 +85,13 @@ var FABLER = (function () {
 
         run: function () {
             modules.GfxMan.clear();
-            modules.Screen.createScreen('main', null, true);
+            modules.Screen.createScreen('main', true);
             modules.Screen.printDescription('Hi all, this is Fabler.' +
                                             ' If you were expecting a game ' +
                                             'to be here, please contact your ' +
                                             'nearest representative.');
+            modules.Screen.switchScreen('main');
+            modules.Screen.render();
         }
     };
 }());

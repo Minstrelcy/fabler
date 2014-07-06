@@ -19,10 +19,10 @@ FABLER.add("Screen", (function () {
 
     return {
         // Public Methods
-        createScreen: function (name, buffer, active) {
+        createScreen: function (name, active) {
             screens[name] = new ScreenBuffer({
                 'name': name,
-                'buffer': buffer,
+                'buffer': new this.TextBuffer(),
                 'active': active
             });
 
@@ -33,6 +33,33 @@ FABLER.add("Screen", (function () {
             // Determine the current cursor position,
             // and advance it for this text
             screens.current.buffer.contents.push(text);
+        },
+
+        render: function () {
+            if (screens.current.active) {
+                this.modules.GfxMan.drawTextBuffer(screens.current.buffer);
+            }
+        },
+
+        switchScreen: function (name) {
+            if (screens.hasOwnProperty(name)) {
+                screens.current = screens[name];
+            }
+        },
+
+        // Constructor for a TextBuffer:
+        //var textBuffer = {
+        //    contents: [text],
+        //    x: 0,
+        //    y: 0
+        //}
+        TextBuffer: function (text) {
+            this.contents = [];
+            this.contents.push(text);
+            this.x = 0;
+            this.y = 0;
+
+            return this;
         }
     };
 }()));
