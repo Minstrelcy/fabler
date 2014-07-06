@@ -29,10 +29,12 @@ FABLER.add("Screen", (function () {
             return screens[name];
         },
 
-        printDescription: function (text) {
-            // Determine the current cursor position,
-            // and advance it for this text
-            screens.current.buffer.contents.push(text);
+        printDescription: function (text, screen) {
+            if (typeof screen === 'string') {
+                screens[screen].buffer.contents.push(text);
+            } else {
+                screens.current.buffer.contents.push(text);
+            }
         },
 
         render: function () {

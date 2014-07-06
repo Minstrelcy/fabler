@@ -68,7 +68,6 @@ var FABLER = (function () {
             if (module.hasOwnProperty('init')) {
                 module.init();
             }
-
         },
 
         load: function () {
@@ -81,15 +80,17 @@ var FABLER = (function () {
                     }
                 }
             }
-        },
 
-        run: function () {
-            modules.GfxMan.clear();
             modules.Screen.createScreen('main', true);
             modules.Screen.printDescription('Hi all, this is Fabler.' +
                                             ' If you were expecting a game ' +
                                             'to be here, please contact your ' +
-                                            'nearest representative.');
+                                            'nearest representative.', 'main');
+
+        },
+
+        run: function () {
+            modules.GfxMan.clear();
             modules.Screen.switchScreen('main');
             modules.Screen.render();
         }
