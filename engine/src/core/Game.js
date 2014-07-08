@@ -86,7 +86,7 @@ var FABLER = (function () {
                                             ' If you were expecting a game ' +
                                             'to be here, please contact your ' +
                                             'nearest representative.', 'main');
-            modules.Screen.printDescription('fabler>', 'main');
+            modules.Screen.printDescription('fabler> ', 'main');
 
         },
 
