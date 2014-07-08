@@ -18,10 +18,10 @@ FABLER.add("Screen", (function () {
 
                 // The dimensions of the cursor
                 rect: {
-                    topX: 0,
-                    topY: 0,
-                    bottomX: 0,
-                    bottomY: 0
+                    x: 0,
+                    y: 0,
+                    dx: 0,
+                    dy: 0
                 },
 
                 // Simple method for drawing the cursor
@@ -33,14 +33,17 @@ FABLER.add("Screen", (function () {
                 // the bounding box
                 moveTo: function (x, y) {
                     var charWidth =
-                            that.modules.GfxMan.getBuffer().metrics.width;
+                            that.modules.GfxMan.getBuffer().metrics.width,
+                        charHeight =
+                            that.modules.GfxMan.getBuffer().metrics.
+                            emHeightAscent;
 
-                    this.x = x;
-                    this.y = y;
-                    this.rect.topX = x;
-                    this.rect.topY = y;
-                    this.rect.bottomX = x + charWidth;
-                    this.rect.bottomY = y + (charWidth * 2);
+                    this.x = Math.floor(x);
+                    this.y = Math.floor(y);
+                    this.rect.x = Math.floor(x);
+                    this.rect.y = Math.floor(y - (charHeight / 2)); //middle base
+                    this.rect.dx = Math.floor(charWidth);
+                    this.rect.dy = Math.floor(charHeight);
                 }
             };
         };
@@ -54,7 +57,15 @@ FABLER.add("Screen", (function () {
                 'active': active
             }, this);
 
+            screens[name].cursor.moveTo(0, 0);
+
             return screens[name];
+        },
+
+        moveCursor: function (x, y) {
+            if (screens.current !== undefined) {
+                screens.current.cursor.moveTo(x, y);
+            }
         },
 
         printDescription: function (text, screen) {

@@ -187,7 +187,7 @@ FABLER.add("GfxMan",  (function () {
                     //i = j; // Advance the iterator past 
                 } else {
                     // No wrapping needed
-                    printBuffer.contents.push(textBuffer[i]);
+                    printBuffer.contents.push(textBuffer.contents[i]);
                 }
             }
 
@@ -197,21 +197,31 @@ FABLER.add("GfxMan",  (function () {
                 this.drawText(printBuffer.contents[i],
                                              printBuffer.x,
                                              (printBuffer.y +
-                                              (i * buffer.emHeightAscent)));
+                                              (i * buffer.metrics.emHeightAscent)
+                                             ));
             }
+
+            this.modules.Screen.moveCursor((printBuffer.x +
+                                            (printBuffer.contents[i - 1].length *
+                                            buffer.metrics.width)),
+                                          (printBuffer.y +
+                                           ((i - 1) *
+                                            buffer.metrics.emHeightAscent)));
         },
 
         // Draws a rectangle filled with the 
         // currently described foreground colour.
         drawRect: function (rect) {
-            var oldFill = gfxContext.fillStyle;
+            var oldFill = gfxContext.fillStyle,
+                offsetX = buffer.metrics.width + buffer.padding,
+                offsetY = buffer.metrics.emHeightAscent + buffer.padding;
 
             gfxContext.fillStyle = buffer.fgColour;
 
-            gfxContext.fillRect(rect.topX + buffer.padding,
-                                rect.topY + buffer.padding,
-                                rect.bottomX + buffer.padding,
-                                rect.bottomY + buffer.padding);
+            gfxContext.fillRect(rect.x + offsetX,
+                                rect.y + offsetY,
+                                rect.dx,
+                                rect.dy);
 
             gfxContext.fillStyle = oldFill;
         },
