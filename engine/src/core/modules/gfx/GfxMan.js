@@ -209,6 +209,17 @@ FABLER.add("GfxMan",  (function () {
                                             buffer.metrics.emHeightAscent)));
         },
 
+        // Rectangle clearing
+        clearRect: function (rect) {
+            var offsetX = buffer.metrics.width + buffer.padding,
+                offsetY = buffer.metrics.emHeightAscent + buffer.padding;
+
+            gfxContext.clearRect(rect.x + offsetX,
+                                rect.y + offsetY,
+                                rect.dx,
+                                rect.dy);
+        },
+
         // Draws a rectangle filled with the 
         // currently described foreground colour.
         drawRect: function (rect) {
