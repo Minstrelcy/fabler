@@ -141,8 +141,7 @@ FABLER.add("GfxMan",  (function () {
         //}
         // The text needs to be wrapped as needed
         drawTextBuffer: function (textBuffer) {
-            var lineHeight = buffer.metrics.width * 2,
-                printBuffer = new this.modules.Screen.TextBuffer(),
+            var printBuffer = new this.modules.Screen.TextBuffer(),
                 tempBuffer = '',
                 spliceArray = [],
                 i,
@@ -198,8 +197,21 @@ FABLER.add("GfxMan",  (function () {
                 this.drawText(printBuffer.contents[i],
                                              printBuffer.x,
                                              (printBuffer.y +
-                                              (i * lineHeight)));
+                                              (i * buffer.emHeightAscent)));
             }
+        },
+
+        // Draws a rectangle filled with the 
+        // currently described foreground colour.
+        drawRect: function (rect) {
+            var oldFill = gfxContext.fillStyle;
+
+            gfxContext.fillStyle = buffer.fgColour;
+
+            gfxContext.fillRect(rect.topX, rect.topY,
+                                rect.bottomX, rect.bottomY);
+
+            gfxContext.fillStyle = oldFill;
         },
 
         setIsFullScreen: function (setting) {

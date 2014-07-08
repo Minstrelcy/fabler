@@ -22,10 +22,10 @@ FABLER.add("Screen", (function () {
                     bottomX: 0,
                     bottomY: 0
                 },
-                    
+
                 // Simple method for drawing the cursor
                 draw: function () {
-                    
+                    this.module.GfxMan.drawRect(this.cursor.rect);
                 }
             };
         };
