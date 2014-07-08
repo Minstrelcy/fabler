@@ -12,10 +12,10 @@ FABLER.add("Screen", (function () {
             this.name = props.name || '';
             this.buffer = props.buffer || null;
             this.active = props.active || false;
-            this.visible = props.visible || true;
             this.cursor = { //Simple point, middle of line
                 x: 0,
                 y: 0,
+                visible: true,
 
                 // The dimensions of the cursor
                 rect: {
