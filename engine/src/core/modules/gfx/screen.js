@@ -13,6 +13,7 @@ FABLER.add("Screen", (function () {
             this.buffer = props.buffer || null;
             this.active = props.active || false;
             this.cursor = { //Simple point, middle of line
+                frameIndex: 0,
                 x: 0,
                 y: 0,
                 visible: true,
@@ -58,6 +59,19 @@ FABLER.add("Screen", (function () {
 
                 toggleVisible: function () {
                     this.visible = !this.visible;
+                    console.log(this.visible);
+                },
+
+                blink: function () {
+                    // Animate a blinking cursor
+                    var frames = 17;
+
+                    this.frameIndex += 1;
+
+                    if (this.frameIndex === frames) {
+                        this.toggleVisible();
+                        this.frameIndex = 0;
+                    }
                 }
             };
         };
@@ -93,6 +107,7 @@ FABLER.add("Screen", (function () {
         render: function () {
             if (screens.current.active) {
                 this.modules.GfxMan.drawTextBuffer(screens.current.buffer);
+                screens.current.cursor.blink();
                 screens.current.cursor.draw();
             }
         },
