@@ -7,7 +7,8 @@ FABLER.add("Screen", (function () {
     // Attributes
     var screens = {}, // is an array better here?
     // This object will hold information for a screen
-        ScreenBuffer = function (props) {
+        ScreenBuffer = function (props, screenObj) {
+            var that = screenObj;
             this.name = props.name || '';
             this.buffer = props.buffer || null;
             this.active = props.active || false;
@@ -25,7 +26,21 @@ FABLER.add("Screen", (function () {
 
                 // Simple method for drawing the cursor
                 draw: function () {
-                    this.module.GfxMan.drawRect(this.cursor.rect);
+                    that.modules.GfxMan.drawRect(this.rect);
+                },
+
+                // Move the cursor to a new pos, recalculating
+                // the bounding box
+                moveTo: function (x, y) {
+                    var charWidth =
+                            that.modules.GfxMan.getBuffer().metrics.width;
+
+                    this.x = x;
+                    this.y = y;
+                    this.rect.topX = x;
+                    this.rect.topY = y;
+                    this.rect.bottomX = x + charWidth;
+                    this.rect.bottomY = y + (charWidth * 2);
                 }
             };
         };
@@ -37,7 +52,7 @@ FABLER.add("Screen", (function () {
                 'name': name,
                 'buffer': new this.TextBuffer(),
                 'active': active
-            });
+            }, this);
 
             return screens[name];
         },

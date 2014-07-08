@@ -208,8 +208,10 @@ FABLER.add("GfxMan",  (function () {
 
             gfxContext.fillStyle = buffer.fgColour;
 
-            gfxContext.fillRect(rect.topX, rect.topY,
-                                rect.bottomX, rect.bottomY);
+            gfxContext.fillRect(rect.topX + buffer.padding,
+                                rect.topY + buffer.padding,
+                                rect.bottomX + buffer.padding,
+                                rect.bottomY + buffer.padding);
 
             gfxContext.fillStyle = oldFill;
         },
