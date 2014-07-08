@@ -54,6 +54,10 @@ FABLER.add("Screen", (function () {
                     this.rect.y = Math.floor(y - (charHeight / 2)); //middle base
                     this.rect.dx = Math.floor(charWidth);
                     this.rect.dy = Math.floor(charHeight);
+                },
+
+                toggleVisible: function () {
+                    this.visible = !this.visible;
                 }
             };
         };
