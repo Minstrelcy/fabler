@@ -37,7 +37,7 @@ FABLER.add("GfxMan",  (function () {
         // Setup the buffer stats
         buffer.height = height - buffer.padding;
         buffer.width = width - buffer.padding;
-        buffer.fontScale = Math.floor(height / prefs.lines);
+        buffer.fontScale = Math.floor(buffer.height / prefs.lines);
 
         // Setup context specs
         gfxContext.font = buffer.fontScale +
