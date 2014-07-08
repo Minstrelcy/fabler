@@ -211,13 +211,17 @@ FABLER.add("GfxMan",  (function () {
 
         // Rectangle clearing
         clearRect: function (rect) {
-            var offsetX = buffer.metrics.width + buffer.padding,
+            var oldFill = gfxContext.fillStyle,
+                offsetX = buffer.metrics.width + buffer.padding,
                 offsetY = buffer.metrics.emHeightAscent + buffer.padding;
 
-            gfxContext.clearRect(rect.x + offsetX,
+            gfxContext.fillStyle = buffer.bgColour;
+            gfxContext.fillRect(rect.x + offsetX,
                                 rect.y + offsetY,
                                 rect.dx,
                                 rect.dy);
+
+            gfxContext.fillStyle = oldFill;
         },
 
         // Draws a rectangle filled with the 
