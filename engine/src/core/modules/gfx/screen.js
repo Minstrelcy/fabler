@@ -24,6 +24,10 @@ FABLER.add("Screen", (function () {
                     dy: 0
                 },
 
+                clear: function () {
+                    that.modules.GfxMan.clearRect(this.rect);
+                },
+
                 // Simple method for drawing the cursor
                 draw: function () {
                     that.modules.GfxMan.drawRect(this.rect);
