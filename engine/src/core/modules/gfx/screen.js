@@ -13,7 +13,20 @@ FABLER.add("Screen", (function () {
             this.active = props.active || false;
             this.cursor = { //Simple point, middle of line
                 x: 0,
-                y: 0
+                y: 0,
+
+                // The dimensions of the cursor
+                rect: {
+                    topX: 0,
+                    topY: 0,
+                    bottomX: 0,
+                    bottomY: 0
+                },
+                    
+                // Simple method for drawing the cursor
+                draw: function () {
+                    
+                }
             };
         };
 
@@ -40,6 +53,7 @@ FABLER.add("Screen", (function () {
         render: function () {
             if (screens.current.active) {
                 this.modules.GfxMan.drawTextBuffer(screens.current.buffer);
+                screens.current.cursor.draw();
             }
         },
 
