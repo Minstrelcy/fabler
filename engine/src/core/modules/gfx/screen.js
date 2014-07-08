@@ -42,6 +42,9 @@ FABLER.add("Screen", (function () {
                             that.modules.GfxMan.getBuffer().metrics.
                             emHeightAscent;
 
+                    // Remove the cursor from its current pos
+                    this.clear();
+
                     this.x = Math.floor(x);
                     this.y = Math.floor(y);
                     this.rect.x = Math.floor(x);
