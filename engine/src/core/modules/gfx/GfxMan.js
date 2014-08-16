@@ -10,7 +10,7 @@ FABLER.add("GfxMan",  (function () {
         // Preferences for the look and feel
         prefs = {
             textBaseline: 'middle',
-            fontSpec: 'monospace',
+            fontSpec: 'Inconsolata',
             lines: 20 //lines per screen
         },
 
@@ -32,12 +32,14 @@ FABLER.add("GfxMan",  (function () {
     // Private Methods
     function updateMetrics() {
         var height = Math.floor(canvas.height),
-            width = Math.floor(canvas.width);
+            width = Math.floor(canvas.width),
+            gutter = Math.floor(buffer.padding * 2);
 
         // Setup the buffer stats
-        buffer.height = height - buffer.padding;
-        buffer.width = width - buffer.padding;
-        buffer.fontScale = Math.floor(buffer.height / prefs.lines);
+        buffer.height = height;
+        buffer.width = width;
+        buffer.fontScale = Math.floor((buffer.height -
+                                       gutter) / prefs.lines);
 
         // Setup context specs
         gfxContext.font = buffer.fontScale +
@@ -46,7 +48,8 @@ FABLER.add("GfxMan",  (function () {
         // Calculate text metrics
         buffer.metrics = gfxContext.measureText('m');
         buffer.metrics.emHeightAscent = Math.floor(buffer.metrics.width * 2);
-        buffer.maxChars = Math.floor(buffer.width / buffer.metrics.width);
+        buffer.maxChars = Math.floor((buffer.width - gutter)
+                                     / buffer.metrics.width) - 1;
     }
 
     function createCanvas(width, height) {
