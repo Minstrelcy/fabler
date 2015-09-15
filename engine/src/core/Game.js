@@ -12,8 +12,8 @@ var FABLER = (function () {
         subsystems = {
             GfxMan: true,
             Player: true,
-            Location: false,
             Asset: false,
+            Location: false,
             Screen: false
         },
 
