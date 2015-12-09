@@ -24,7 +24,7 @@ FABLER.add("GfxMan",  (function () {
             fontScale: 0,
             maxChars: 0, // How much text can be written per line
             metrics: null, // For TextMetrics
-            padding: 10 // Space around the main screen area
+            padding: 0  // Space around the main screen area
         },
         canvasId = 'mainBuffer',
         isFullScreen = false;
@@ -35,6 +35,7 @@ FABLER.add("GfxMan",  (function () {
             width = Math.floor(canvas.width),
             gutter = Math.floor(buffer.padding * 2);
 
+        console.log(width);
         // Setup the buffer stats
         buffer.height = height;
         buffer.width = width;
@@ -47,9 +48,13 @@ FABLER.add("GfxMan",  (function () {
 
         // Calculate text metrics
         buffer.metrics = gfxContext.measureText('m');
+        console.log(buffer.metrics);
         buffer.metrics.emHeightAscent = Math.floor(buffer.metrics.width * 2);
         buffer.maxChars = Math.floor((buffer.width - gutter)
-                                     / buffer.metrics.width) - 1;
+                                     / (buffer.metrics.width / 2)) - 1;
+
+        // Debug
+        console.log(buffer.maxChars);
     }
 
     function createCanvas(width, height) {
@@ -60,6 +65,8 @@ FABLER.add("GfxMan",  (function () {
             canvas.id = canvasId;
             canvas.height = height;
             canvas.width = width;
+
+            body.appendChild(canvas);
 
             if (isFullScreen === true) {
                 // Init canvas to window size
@@ -79,7 +86,7 @@ FABLER.add("GfxMan",  (function () {
             buffer.width = canvas.width;
             buffer.height = canvas.height;
 
-            body.appendChild(canvas);
+
         }
     }
 
@@ -206,7 +213,7 @@ FABLER.add("GfxMan",  (function () {
 
             this.modules.Screen.moveCursor((printBuffer.x +
                                             (printBuffer.contents[i - 1].length *
-                                            buffer.metrics.width)),
+                                             (buffer.metrics.width / 2))),
                                           (printBuffer.y +
                                            ((i - 1) *
                                             buffer.metrics.emHeightAscent)));
