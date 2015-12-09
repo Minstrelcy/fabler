@@ -51,7 +51,7 @@ FABLER.add("GfxMan",  (function () {
         console.log(buffer.metrics);
         buffer.metrics.emHeightAscent = Math.floor(buffer.metrics.width * 2);
         buffer.maxChars = Math.floor((buffer.width - gutter)
-                                     / (buffer.metrics.width / 2)) - 1;
+                                     / buffer.metrics.width) - 1;
 
         // Debug
         console.log(buffer.maxChars);
@@ -213,7 +213,7 @@ FABLER.add("GfxMan",  (function () {
 
             this.modules.Screen.moveCursor((printBuffer.x +
                                             (printBuffer.contents[i - 1].length *
-                                             (buffer.metrics.width / 2))),
+                                             (buffer.metrics.width))),
                                           (printBuffer.y +
                                            ((i - 1) *
                                             buffer.metrics.emHeightAscent)));
