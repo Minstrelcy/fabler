@@ -14,7 +14,8 @@ var FABLER = (function () {
             Player: true,
             Asset: false,
             Location: false,
-            Screen: false
+            Screen: false,
+            InputMan: true
         },
 
         modules = {};
