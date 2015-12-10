@@ -149,6 +149,7 @@ FABLER.add("GfxMan",  (function () {
         drawTextBuffer: function (textBuffer, appendBuffer) {
             var printBuffer = new this.modules.Screen.TextBuffer(),
                 tempBuffer = '',
+                appendContents = "",
                 spliceArray = [],
                 i,
                 j;
@@ -209,9 +210,10 @@ FABLER.add("GfxMan",  (function () {
                 // Check for appending the final buffer
                 if (i === (printBuffer.contents.length - 2)) {
                     if (typeof appendBuffer === "string") {
-                        printBuffer.contents[i + 1] =
-                            String.concat(printBuffer.contents[i + 1],
-                                                                   appendBuffer);
+                        appendContents =
+                            printBuffer.contents[i + 1].concat(appendBuffer);
+
+                        printBuffer.contents[i + 1] = appendContents;
                     }
                 }
             }

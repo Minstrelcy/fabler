@@ -5,7 +5,7 @@ FABLER.add("InputMan", (function () {
     "use strict";
 
     // Internal structure to store input as it comes in
-    var buffer = "",
+    var buffer = [],
         bufferImpl,
 
         // Internal buffer object
@@ -19,9 +19,9 @@ FABLER.add("InputMan", (function () {
                         var keyCode = event.charCode,
                             keyChar = String.fromCharCode(keyCode);
 
-                        buffer = String.concat(buffer, keyChar);
+                        buffer.push(keyChar);
 
-                        that.modules.Screen.printAtEnd(buffer);
+                        that.modules.Screen.printAtEnd(buffer.join(""));
                     });
             };
         };
