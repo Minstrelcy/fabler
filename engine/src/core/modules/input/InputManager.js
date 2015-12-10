@@ -5,18 +5,28 @@ FABLER.add("InputMan", (function () {
     "use strict";
 
     // Internal structure to store input as it comes in
-    var currentIndex = 0,
-        buffer = [];
+    var buffer = "",
+        bufferImpl,
 
-    // Internal methods
-    function keyListener(event) {
-        var keyCode = event.charCode,
-            keyChar = String.fromCharCode(keyCode);
+        // Internal buffer object
+        InputBuffer = function (inputObj) {
+            var that = inputObj;
+            this.init = function () {
 
-        buffer[currentIndex] = keyChar;
+                // Set up an event listener to capture keystrokes
+                document.addEventListener('keypress',
+                    function (event) {
+                        var keyCode = event.charCode,
+                            keyChar = String.fromCharCode(keyCode);
 
-        currentIndex += 1;
-    }
+                        buffer = String.concat(buffer, keyChar);
+                    });
+            };
+
+            this.print = function () {
+                that.modules.Screen.printDescription(buffer);
+            };
+        };
 
     return {
         init: function () {
@@ -24,12 +34,20 @@ FABLER.add("InputMan", (function () {
                 this.publish('getBuffer', function () {
                     return buffer;
                 });
+
+                this.publish('flushBuffer', function () {
+                    bufferImpl.print();
+                });
             }
         },
 
         doSetup: function () {
-            // Set up an event listener to capture keystrokes
-            document.addEventListener('keypress', keyListener);
+            bufferImpl = new InputBuffer(this);
+            bufferImpl.init();
+        },
+
+        render: function () {
+            bufferImpl.print();
         }
     };
 }()));
