@@ -59,7 +59,6 @@ FABLER.add("Screen", (function () {
 
                 toggleVisible: function () {
                     this.visible = !this.visible;
-                    console.log(this.visible);
                 },
 
                 blink: function () {

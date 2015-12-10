@@ -35,7 +35,6 @@ FABLER.add("GfxMan",  (function () {
             width = Math.floor(canvas.width),
             gutter = Math.floor(buffer.padding * 2);
 
-        console.log(width);
         // Setup the buffer stats
         buffer.height = height;
         buffer.width = width;
@@ -48,13 +47,10 @@ FABLER.add("GfxMan",  (function () {
 
         // Calculate text metrics
         buffer.metrics = gfxContext.measureText('m');
-        console.log(buffer.metrics);
         buffer.metrics.emHeightAscent = Math.floor(buffer.metrics.width * 2);
         buffer.maxChars = Math.floor((buffer.width - gutter)
                                      / buffer.metrics.width) - 1;
 
-        // Debug
-        console.log(buffer.maxChars);
     }
 
     function createCanvas(width, height) {
