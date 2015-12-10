@@ -115,21 +115,22 @@ FABLER.add("Screen", (function () {
         },
 
         printAtEnd: function (text, screen) {
-            var i = 0,
-                separator = ' ';
+            var separator = " ",
+                curScreen = screens.current,
+                i = (curScreen.buffer.contents.length - 1);
 
-            text = String.concat(' ', text);
-            
+            text = String.concat(separator, text);
+
             if (typeof screen === 'string') {
                 i = (screens[screen].buffer.contents.length - 1);
 
-                screens[screen].buffer.contents[i].concat(text);
-            } else {
-                // Use the default
-                i = (screens.current.buffer.contents.length - 1)
-
-                screens.current.buffer.contents[i].concat(text);;
+                curScreen = screens[screen];
             }
+
+            curScreen.buffer.contents[i] = String.concat(curScreen.buffer.contents[i],
+                                                      text);
+
+            console.log(curScreen.buffer.contents[i]);
         },
 
         render: function () {

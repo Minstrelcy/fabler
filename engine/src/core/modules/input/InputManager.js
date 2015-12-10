@@ -21,6 +21,7 @@ FABLER.add("InputMan", (function () {
 
                         buffer = String.concat(buffer, keyChar);
 
+                        that.modules.Screen.printAtEnd(buffer);
                     });
             };
         };
