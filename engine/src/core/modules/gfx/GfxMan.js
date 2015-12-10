@@ -151,6 +151,7 @@ FABLER.add("GfxMan",  (function () {
                 tempBuffer = '',
                 appendContents = "",
                 spliceArray = [],
+                bufferLength = textBuffer.contents.length,
                 i,
                 j;
 
@@ -160,6 +161,15 @@ FABLER.add("GfxMan",  (function () {
 
             printBuffer.x = textBuffer.x;
             printBuffer.y = textBuffer.y;
+
+            // Append the buffer with the append text
+            // Check for appending the final buffer
+            if (typeof appendBuffer === "string") {
+                appendContents =
+                    textBuffer.contents[bufferLength - 1].concat(appendBuffer);
+
+                textBuffer.contents[bufferLength - 1] = appendContents;
+            }
 
             // We need to iterate over the text buffer's 
             // members, splicing into the array additional
@@ -206,16 +216,6 @@ FABLER.add("GfxMan",  (function () {
                                              (printBuffer.y +
                                               (i * buffer.metrics.emHeightAscent)
                                              ));
-
-                // Check for appending the final buffer
-                if (i === (printBuffer.contents.length - 2)) {
-                    if (typeof appendBuffer === "string") {
-                        appendContents =
-                            printBuffer.contents[i + 1].concat(appendBuffer);
-
-                        printBuffer.contents[i + 1] = appendContents;
-                    }
-                }
             }
 
             this.modules.Screen.moveCursor(((printBuffer.contents[i - 1].length - 1)) *
