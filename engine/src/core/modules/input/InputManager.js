@@ -11,15 +11,21 @@ FABLER.add("InputMan", (function () {
         // Internal buffer object
         InputBuffer = function (inputObj) {
             var that = inputObj;
+
+
             this.init = function () {
 
                 // Set up an event listener to capture keystrokes
                 document.addEventListener('keypress',
                     function (event) {
-                        var keyCode = event.charCode,
-                            keyChar = String.fromCharCode(keyCode);
+                        var keyCode = event.key;
 
-                        buffer.push(keyChar);
+                        // Check for backspace
+                        if (keyCode.toLowerCase() === "backspace") {
+                            buffer.pop();
+                        } else {
+                            buffer.push(keyCode);
+                        }
 
                         that.modules.Screen.printAtEnd(buffer.join(""));
                     });
