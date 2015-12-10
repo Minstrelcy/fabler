@@ -95,11 +95,40 @@ FABLER.add("Screen", (function () {
             }
         },
 
+        getCursor: function () {
+            if (screens.current !== undefined) {
+                return {
+                    x: screens.current.cursor.x,
+                    y: screens.current.cursor.y
+                };
+            }
+
+            return {};
+        },
+
         printDescription: function (text, screen) {
             if (typeof screen === 'string') {
                 screens[screen].buffer.contents.push(text);
             } else {
                 screens.current.buffer.contents.push(text);
+            }
+        },
+
+        printAtEnd: function (text, screen) {
+            var i = 0,
+                separator = ' ';
+
+            text = String.concat(' ', text);
+            
+            if (typeof screen === 'string') {
+                i = (screens[screen].buffer.contents.length - 1);
+
+                screens[screen].buffer.contents[i].concat(text);
+            } else {
+                // Use the default
+                i = (screens.current.buffer.contents.length - 1)
+
+                screens.current.buffer.contents[i].concat(text);;
             }
         },
 

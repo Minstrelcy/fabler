@@ -20,11 +20,8 @@ FABLER.add("InputMan", (function () {
                             keyChar = String.fromCharCode(keyCode);
 
                         buffer = String.concat(buffer, keyChar);
-                    });
-            };
 
-            this.print = function () {
-                that.modules.Screen.printDescription(buffer);
+                    });
             };
         };
 
