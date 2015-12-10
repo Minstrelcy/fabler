@@ -14,21 +14,29 @@ FABLER.add("InputMan", (function () {
 
 
             this.init = function () {
-
+                // Check for the 'key' property
                 // Set up an event listener to capture keystrokes
-                document.addEventListener('keypress',
-                    function (event) {
-                        var keyCode = event.key;
+                document.addEventListener('keypress', function (event) {
+                    var keyCode = event.key;
 
-                        // Check for backspace
-                        if (keyCode.toLowerCase() === "backspace") {
-                            buffer.pop();
-                        } else {
-                            buffer.push(keyCode);
-                        }
+                    // Check for command processing
+                    if ((keyCode === "Enter") ||
+                            (keyCode === "Return")) {
+                        buffer.splice(0);
 
-                        that.modules.Screen.printAtEnd(buffer.join(""));
-                    });
+                        that.modules.Screen.printAtEnd("");
+                        return;
+                    }
+
+                    // Check for backspace
+                    if (keyCode === "Backspace") {
+                        buffer.pop();
+                    } else {
+                        buffer.push(keyCode);
+                    }
+
+                    that.modules.Screen.printAtEnd(buffer.join(""));
+                });
             };
         };
 

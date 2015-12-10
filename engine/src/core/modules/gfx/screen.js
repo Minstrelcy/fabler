@@ -11,6 +11,7 @@ FABLER.add("Screen", (function () {
             var that = screenObj;
             this.name = props.name || '';
             this.buffer = props.buffer || null;
+            this.prompt = props.prompt || null;
             this.active = props.active || false;
             this.appendBuffer = ""; // For text replacement
             this.cursor = { //Simple point, middle of line
@@ -78,12 +79,36 @@ FABLER.add("Screen", (function () {
 
     return {
         // Public Methods
-        createScreen: function (name, active) {
+        copyBuffer: function (fromBuffer, toBuffer) {
+            var j = 0;
+
+            if (fromBuffer.contents.length === 0) {
+                return;
+            }
+
+            toBuffer.contents.splice(0);
+
+            for (j = 0; j < fromBuffer.contents.length; j += 1) {
+                toBuffer.contents.push(fromBuffer.contents[j]);
+            }
+        },
+
+        createScreen: function (name, active, prompt) {
             screens[name] = new ScreenBuffer({
                 'name': name,
                 'buffer': new this.TextBuffer(),
                 'active': active
             }, this);
+
+            // Setup the user command prompt
+            if (typeof prompt === 'string') {
+                screens[name].prompt = prompt;
+            } else {
+                screens[name].prompt = "fabler> ";
+            }
+
+            // Setup back buffer
+            screens[name].backBuffer = this.TextBuffer();
 
             screens[name].cursor.moveTo(0, 0);
 
@@ -127,7 +152,13 @@ FABLER.add("Screen", (function () {
 
         render: function () {
             if (screens.current.active) {
-                this.modules.GfxMan.drawTextBuffer(screens.current.buffer,
+                this.copyBuffer(screens.current.buffer, screens.current.backBuffer);
+
+                // Insert prompt
+                screens.current.backBuffer.contents.push(' ');
+                screens.current.backBuffer.contents.push(screens.current.prompt);
+
+                this.modules.GfxMan.drawTextBuffer(screens.current.backBuffer,
                                                    screens.current.appendBuffer);
 
                 screens.current.cursor.blink();
