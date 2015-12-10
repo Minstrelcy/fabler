@@ -216,9 +216,8 @@ FABLER.add("GfxMan",  (function () {
                 }
             }
 
-            this.modules.Screen.moveCursor((printBuffer.x +
-                                            (printBuffer.contents[i - 1].length *
-                                             (buffer.metrics.width))),
+            this.modules.Screen.moveCursor(((printBuffer.contents[i - 1].length - 1)) *
+                                           (buffer.metrics.width),
                                           (printBuffer.y +
                                            ((i - 1) *
                                             buffer.metrics.emHeightAscent)));

@@ -116,10 +116,7 @@ FABLER.add("Screen", (function () {
         },
 
         printAtEnd: function (text, screen) {
-            var separator = " ",
-                curScreen = screens.current;
-
-            text = String.concat(separator, text);
+            var curScreen = screens.current;
 
             if (typeof screen === 'string') {
                 curScreen = screens[screen];
