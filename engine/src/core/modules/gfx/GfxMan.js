@@ -146,7 +146,7 @@ FABLER.add("GfxMan",  (function () {
         //    y: 0
         //}
         // The text needs to be wrapped as needed
-        drawTextBuffer: function (textBuffer) {
+        drawTextBuffer: function (textBuffer, appendBuffer) {
             var printBuffer = new this.modules.Screen.TextBuffer(),
                 tempBuffer = '',
                 spliceArray = [],
@@ -205,6 +205,15 @@ FABLER.add("GfxMan",  (function () {
                                              (printBuffer.y +
                                               (i * buffer.metrics.emHeightAscent)
                                              ));
+
+                // Check for appending the final buffer
+                if (i === (printBuffer.contents.length - 2)) {
+                    if (typeof appendBuffer === "string") {
+                        printBuffer.contents[i + 1] =
+                            String.concat(printBuffer.contents[i + 1],
+                                                                   appendBuffer);
+                    }
+                }
             }
 
             this.modules.Screen.moveCursor((printBuffer.x +

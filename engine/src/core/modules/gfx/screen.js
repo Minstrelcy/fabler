@@ -12,6 +12,7 @@ FABLER.add("Screen", (function () {
             this.name = props.name || '';
             this.buffer = props.buffer || null;
             this.active = props.active || false;
+            this.appendBuffer = ""; // For text replacement
             this.cursor = { //Simple point, middle of line
                 frameIndex: 0,
                 x: 0,
@@ -116,26 +117,22 @@ FABLER.add("Screen", (function () {
 
         printAtEnd: function (text, screen) {
             var separator = " ",
-                curScreen = screens.current,
-                i = (curScreen.buffer.contents.length - 1);
+                curScreen = screens.current;
 
             text = String.concat(separator, text);
 
             if (typeof screen === 'string') {
-                i = (screens[screen].buffer.contents.length - 1);
-
                 curScreen = screens[screen];
             }
 
-            curScreen.buffer.contents[i] = String.concat(curScreen.buffer.contents[i],
-                                                      text);
-
-            console.log(curScreen.buffer.contents[i]);
+            curScreen.appendBuffer = text;
         },
 
         render: function () {
             if (screens.current.active) {
-                this.modules.GfxMan.drawTextBuffer(screens.current.buffer);
+                this.modules.GfxMan.drawTextBuffer(screens.current.buffer,
+                                                   screens.current.appendBuffer);
+
                 screens.current.cursor.blink();
                 screens.current.cursor.draw();
             }
