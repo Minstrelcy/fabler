@@ -14,14 +14,15 @@ FABLER.add("InputMan", (function () {
 
 
             this.init = function () {
-                // Check for the 'key' property
                 // Set up an event listener to capture keystrokes
-                document.addEventListener('keypress', function (event) {
-                    var keyCode = event.key;
+                document.addEventListener('keydown', function (event) {
+                    var keyCode = String.fromCharCode(event.keyCode);
+
+                    // Prevent normal shortcuts from working
+                    event.preventDefault();
 
                     // Check for command processing
-                    if ((keyCode === "Enter") ||
-                            (keyCode === "Return")) {
+                    if (event.keyCode === 13) {
                         buffer.splice(0);
 
                         that.modules.Screen.printAtEnd("");
@@ -29,7 +30,7 @@ FABLER.add("InputMan", (function () {
                     }
 
                     // Check for backspace
-                    if (keyCode === "Backspace") {
+                    if (event.keyCode === 8) {
                         buffer.pop();
                     } else {
                         buffer.push(keyCode);
