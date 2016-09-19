@@ -83,10 +83,9 @@ var FABLER = (function () {
             }
 
             modules.Screen.createScreen('main', true);
-            modules.Screen.printDescription('Hi all, this is Fabler.' +
-                                            ' If you were expecting a game ' +
-                                            'to be here, please contact your ' +
-                                            'nearest representative.', 'main');
+            modules.Screen.printDescription('You are in a dark, desolate place. '  
+					    + 'There are no rooms, no doors, and no story. '
+					    + 'This is a game engine. With no game.', 'main');
 
         },
 
