@@ -84,8 +84,8 @@ var FABLER = (function () {
 
             modules.Screen.createScreen('main', true);
             modules.Screen.printDescription('You are in a dark, desolate place. '
-                                            + 'There are no rooms, no doors, and no story. '
-                                            + 'This is a game engine. With no game.', 'main');
+                                            + 'There are no rooms, no doors, and no story. ', 'main');
+            modules.Screen.printDescription('This is a game engine. With no game.', 'main');
 
         },
 
