@@ -23,6 +23,8 @@ FABLER.add("InputMan", (function () {
 
                     // Check for command processing
                     if (event.keyCode === 13) {
+                        that.modules.CommandProcessor.do(buffer);
+
                         buffer.splice(0);
 
                         that.modules.Screen.printAtEnd("");
